@@ -22,7 +22,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold">
-          PassaBola
+          Passa A Bola
         </Link>
 
         {/* Botões Login/Cadastro */}
@@ -60,7 +60,7 @@ export default function Navbar() {
           <h2 className="text-sm text-gray-600 mb-4">MENU</h2>
           <div className="flex flex-col space-y-3">
             {[
-              { href: "/noticias", label: "Notícias" },
+              { href: "/", label: "Início" },
               { href: "/campeonatos", label: "Campeonatos" },
               { href: "/ligas", label: "Ligas" },
               { href: "/times", label: "Times" },
