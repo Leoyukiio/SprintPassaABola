@@ -10,32 +10,42 @@ import { doc, onSnapshot } from "firebase/firestore";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [photoURL, setPhotoURL] = useState("/images/user/user.jpg");
+  const [photoURL, setPhotoURL] = useState("/images/perfil/user.jpg");
   const [profileMenu, setProfileMenu] = useState(false);
 
   useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
+    let unsubscribeDoc = null;
 
-        // Ouvir alterações no documento do usuário
-        const userRef = doc(db, "users", user.uid);
-        const unsubscribeDoc = onSnapshot(userRef, (docSnap) => {
+    const unsubscribeAuth = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+
+        const userRef = doc(db, "users", currentUser.uid);
+        unsubscribeDoc = onSnapshot(userRef, (docSnap) => {
           if (docSnap.exists()) {
             const data = docSnap.data();
-            setPhotoURL(data.photoBase64 || "/images/user/user.jpg");
+            const nextPhoto = data?.photoBase64;
+            setPhotoURL(nextPhoto && nextPhoto.length > 0 ? nextPhoto : "/images/perfil/user.jpg");
+          } else {
+            setPhotoURL("/images/perfil/user.jpg");
           }
         });
-
-        // Limpar listener do Firestore ao deslogar
-        return () => unsubscribeDoc();
       } else {
         setUser(null);
-        setPhotoURL("/images/user/user.jpg");
+        setPhotoURL("/images/perfil/user.jpg");
+        if (typeof unsubscribeDoc === "function") {
+          unsubscribeDoc();
+          unsubscribeDoc = null;
+        }
       }
     });
 
-    return () => unsubscribeAuth();
+    return () => {
+      if (typeof unsubscribeDoc === "function") {
+        unsubscribeDoc();
+      }
+      unsubscribeAuth();
+    };
   }, []);
 
   const handleLogout = async () => {
@@ -76,9 +86,10 @@ export default function Navbar() {
             >
               Login
             </Link>
+            {/* parte de cadastro na navbar */}
             {/* <Link
               href="/cadastro"
-              className="bg-[#F250A9] text-black px-4 py-2 rounded-lg hover:bg-white  transition border border-black"
+              className="bg-[#F250A9] text-black px-4 py-2 rounded-lg hover:bg:white  transition border border-black"
             >
               Cadastro
             </Link> */}
@@ -94,7 +105,7 @@ export default function Navbar() {
                 alt="Perfil"
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  e.target.src = "/images/user/user.jpg";
+                  e.target.src = "/images/perfil/user.jpg";
                 }}
               />
             </button>

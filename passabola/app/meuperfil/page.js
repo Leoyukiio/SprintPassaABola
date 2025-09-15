@@ -20,15 +20,18 @@ export default function MeuPerfil() {
 
   // Carregar dados do usuário
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
 
-        const userDoc = await getDoc(doc(db, "users", user.uid));
+        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
         if (userDoc.exists()) {
           const data = userDoc.data();
           setProfile(data);
-          setPhotoURL(data.photoBase64 || "/images/perfil/user.jpg");
+          const nextPhoto = data?.photoBase64;
+          setPhotoURL(nextPhoto && nextPhoto.length > 0 ? nextPhoto : "/images/perfil/user.jpg");
+        } else {
+          setPhotoURL("/images/perfil/user.jpg");
         }
       }
     });
@@ -105,6 +108,9 @@ export default function MeuPerfil() {
           src={photoURL}
           alt="Foto de perfil"
           className="w-24 h-24 rounded-full object-cover mb-2 border"
+          onError={(e) => {
+            e.currentTarget.src = "/images/perfil/user.jpg";
+          }}
         />
         <label className="bg-purple-700 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-purple-800 transition">
           Escolher Foto
