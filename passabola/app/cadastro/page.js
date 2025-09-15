@@ -1,164 +1,122 @@
 "use client";
 
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; //TODO: Esta dando erro para linkar o firebase com a pagina de cadastro
-import { auth, db } from "../lib/firebase";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "../lib/firebase";
 import { useRouter } from "next/navigation";
 
 export default function CadastroPage() {
-  const [etapa, setEtapa] = useState(1);
-  const [nome, setNome] = useState("");
-  const [idade, setIdade] = useState("");
-  const [tipo, setTipo] = useState("Jogador");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [cep, setCep] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [telefone, setTelefone] = useState("");
   const [error, setError] = useState("");
-
   const router = useRouter();
 
-  const handleEtapa1 = (e) => {
+  // Cadastro com email/senha
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!nome || !idade || !tipo) {
-      setError("Preencha todos os campos!");
-      return;
-    }
     setError("");
-    setEtapa(2);
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, senha);
+      router.push("/inicio");
+    } catch (err) {
+      setError("Erro ao cadastrar. Verifique os dados.");
+      console.error(err);
+    }
   };
 
-  const handleCadastro = async (e) => {
-    e.preventDefault();
+  // Cadastro/Login com Google
+  const handleGoogleSignup = async () => {
     setError("");
+    const provider = new GoogleAuthProvider();
+
     try {
-      // Cria usuário no Auth
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        senha
-      );
-      const user = userCredential.user;
-
-      // Cria perfil no Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        nome,
-        idade,
-        tipo,
-        email,
-        cep,
-        cpf,
-        telefone,
-        criadoEm: new Date(),
-      });
-
-      router.push("/dashboard");
+      await signInWithPopup(auth, provider);
+      router.push("/inicio");
     } catch (err) {
+      setError("Erro ao cadastrar com Google.");
       console.error(err);
-      setError("Erro ao cadastrar usuário. Verifique os dados.");
     }
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-purple-800 p-8 rounded-2xl shadow-lg">
-        {etapa === 1 && (
-          <form onSubmit={handleEtapa1} className="space-y-4">
-            <h1 className="text-2xl font-bold text-center text-white mb-6">
-              Cadastro - Etapa 1
-            </h1>
-            <input
-              type="text"
-              placeholder="Nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg focus:outline-none"
-              required
-            />
-            <input
-              type="number"
-              placeholder="Idade"
-              value={idade}
-              onChange={(e) => setIdade(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg focus:outline-none"
-              required
-            />
-            <select
-              value={tipo}
-              onChange={(e) => setTipo(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg focus:outline-none"
-            >
-              <option>Jogador</option>
-              <option>Time</option>
-              <option>Organizador</option>
-            </select>
-            {error && <p className="text-red-400">{error}</p>}
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-            >
-              Próxima Etapa
-            </button>
-          </form>
-        )}
+    <div
+      className="fixed inset-0 bg-gray-100 flex items-center justify-center"
+      style={{ paddingTop: "64px", paddingBottom: "20px" }}
+    >
+      <div className="w-full max-w-sm border border-[#8C2E62] bg-white p-8 rounded-2xl shadow-lg max-h-full overflow-y-auto">
+        <h1 className="text-2xl font-bold text-black text-center mb-6">
+          Criar Conta
+        </h1>
 
-        {etapa === 2 && (
-          <form onSubmit={handleCadastro} className="space-y-4">
-            <h1 className="text-2xl font-bold text-center text-white mb-6">
-              Cadastro - Etapa 2
-            </h1>
+        {/* Cadastro com email e senha */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm text-black font-medium mb-1">
+              E-mail
+            </label>
             <input
               type="email"
-              placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg focus:outline-none"
+              className="w-full px-3 py-2 border border-[#8C2E62] text-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F250A9]"
+              placeholder="seu@email.com"
               required
             />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1 text-black">
+              Senha
+            </label>
             <input
               type="password"
-              placeholder="Senha"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg focus:outline-none"
+              className="w-full px-3 py-2 border border-[#8C2E62] text-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F250A9]"
+              placeholder="••••••••"
               required
             />
-            <input
-              type="text"
-              placeholder="CEP"
-              value={cep}
-              onChange={(e) => setCep(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg focus:outline-none"
-              required
-            />
-            <input
-              type="text"
-              placeholder="CPF"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg focus:outline-none"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Telefone"
-              value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg focus:outline-none"
-              required
-            />
-            {error && <p className="text-red-400">{error}</p>}
-            <button
-              type="submit"
-              className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
-            >
-              Finalizar Cadastro
-            </button>
-          </form>
-        )}
+          </div>
+          {error && <p className="text-red-400 text-sm">{error}</p>}
+          <button
+            type="submit"
+            className="w-full bg-[#F250A9] text-white py-2 rounded-lg hover:bg-[#8C2E62] transition"
+          >
+            Cadastrar
+          </button>
+        </form>
+
+        {/* Separador */}
+        <div className="flex items-center my-4">
+          <hr className="flex-grow border-gray-300" />
+          <span className="px-2 text-gray-500 text-sm">ou</span>
+          <hr className="flex-grow border-gray-300" />
+        </div>
+
+        {/* Botão Google */}
+        <button
+          onClick={handleGoogleSignup}
+          className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg hover:bg-gray-100 transition"
+        >
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google logo"
+            className="w-5 h-5"
+          />
+          <span className="text-gray-700">Cadastrar com Google</span>
+        </button>
+
+        <p className="text-sm text-center text-black mt-4">
+          Já tem conta?{" "}
+          <a href="/login" className="text-[#F250A9] hover:underline">
+            Entrar
+          </a>
+        </p>
       </div>
-    </main>
+    </div>
   );
 }
