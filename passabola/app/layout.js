@@ -16,12 +16,12 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>
+      <body className="min-h-screen flex flex-col">
         <Navbar />
         {/* Espaço para evitar que o carrossel fique "comido" pela navbar fixa */}
         <div style={{ height: "64px" }} />{" "}
         {/* Ajuste a altura conforme a altura real da sua Navbar */}
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
         {/* resto do conteúdo do site */}
         <Footer />
       </body>
