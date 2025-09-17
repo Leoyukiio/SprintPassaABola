@@ -139,7 +139,7 @@ export default function Home() {
           {/* equipe 5 */}
           <div className="bg-white p-6 rounded-lg shadow-md">
             <img
-              src="/images/equipe/paulo.JPEG"
+              src="/images/equipe/paulo2.webp"
               alt="Membro da equipe"
               className="w-32 h-32 mx-auto rounded-full object-cover mb-4"
             />

@@ -52,7 +52,7 @@ export default function TimesPage() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">🏆 Times Cadastrados</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Times Cadastrados</h1>
 
       {times.length === 0 ? (
         <p className="text-gray-600 text-center">Nenhum time foi criado ainda.</p>
@@ -71,26 +71,26 @@ export default function TimesPage() {
                 />
               )}
 
-              <h2 className="text-xl font-bold mb-2">{time.nome}</h2>
-              <p className="text-gray-600">
+              <h2 className="text-xl font-bold mb-2 text-gray-800">{time.nome}</h2>
+              <p className="text-gray-700">
                 <b>Modalidade:</b> {
-                  time.tipo?.toLowerCase() === 'campo' ? '🏟️ Campo' : 
-                  time.tipo?.toLowerCase() === 'society' ? '⚽ Society' : 
-                  time.tipo?.toLowerCase() === 'salao' || time.tipo?.toLowerCase() === 'salão' ? '🏀 Salão' : 
+                  time.tipo?.toLowerCase() === 'campo' ? 'Campo' : 
+                  time.tipo?.toLowerCase() === 'society' ? 'Society' : 
+                  time.tipo?.toLowerCase() === 'salao' || time.tipo?.toLowerCase() === 'salão' ? 'Salão' : 
                   time.tipo
                 }
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-700">
                 <b>Categoria:</b> {time.categoria || 'Não informado'}
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-700">
                 <b>Local:</b> {[time.estado, time.cidade, time.bairro].filter(Boolean).join(" - ")}
               </p>
 
               {userData?.tipoUsuario === "jogadora" && userData.teamId !== time.id && (
                 <button
                   onClick={() => solicitarEntrada(time.id, time.nome)}
-                  className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+                  className="mt-4 bg-[#F250A9] text-white px-4 py-2 rounded hover:bg-[#8C2E62]"
                 >
                   Solicitar entrada
                 </button>

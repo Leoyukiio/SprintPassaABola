@@ -191,14 +191,13 @@ export default function InicioPage() {
       {/* Seção de Destaques */}
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">DESTAQUES</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">DESTAQUES</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {highlights.map((highlight, index) => (
               <article key={index} className="bg-white border-2 border-pink-200 rounded-lg overflow-hidden hover:border-pink-400 transition">
                 <div className="h-48 bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center">
                   <div className="text-center text-white">
-                    <div className="text-2xl mb-2">🏆</div>
                     <div className="text-sm font-medium">{highlight.category}</div>
                   </div>
                 </div>

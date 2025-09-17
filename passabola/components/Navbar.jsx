@@ -65,7 +65,7 @@ export default function Navbar() {
   // 🔹 Links do menu com regras de acesso
   const menuLinks = [
     { href: "/inicio", label: "Início", show: true },
-    { href: "/campeonatos", label: "Campeonatos", show: true },
+    { href: "/campeonato", label: "Campeonatos", show: true },
     { href: "/times", label: "Times", show: true },
     {
       href: "/meutime",
@@ -74,7 +74,7 @@ export default function Navbar() {
         userData?.tipoUsuario === "time" || userData?.tipoUsuario === "jogadora",
     },
     {
-      href: "/meucampeonato",
+      href: "/criarcampeonato",
       label: "Meus Campeonatos",
       show: userData?.tipoUsuario === "organizador",
     },
