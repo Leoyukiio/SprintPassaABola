@@ -370,8 +370,8 @@ export default function MeuCampeonatoPage() {
             {liga.solicitacoes?.length > 0 ? (
               liga.solicitacoes.map((s) => (
                 <div
-                  key={s.teamId}
-                  className="flex justify-between items-center mt-2 p-2 bg-gray-50 rounded border"
+                  key={s.nome} //TODO: Ta aparecendo sem nome
+                  className="flex justify-between text-gray-800 items-center mt-2 p-2 bg-gray-50 rounded border"
                 >
                   <div className="flex items-center space-x-3">
                     {s.escudo && (
@@ -419,7 +419,7 @@ export default function MeuCampeonatoPage() {
           <div className="bg-white rounded-xl shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Criar Novo Campeonato</h2>
+                <h2 className="text-xl text-gray-800 font-bold">Criar Novo Campeonato</h2>
                 <button
                   onClick={() => {
                     setShowCreateModal(false);
@@ -440,7 +440,7 @@ export default function MeuCampeonatoPage() {
                     name="nome"
                     value={formData.nome}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     required
                   />
                 </div>
@@ -454,7 +454,7 @@ export default function MeuCampeonatoPage() {
                     value={formData.descricao}
                     onChange={handleInputChange}
                     rows="3"
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                   ></textarea>
                 </div>
                 
@@ -467,7 +467,7 @@ export default function MeuCampeonatoPage() {
                     name="imagem"
                     value={formData.imagem}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     placeholder="https://exemplo.com/imagem.jpg"
                   />
                   <p className="text-xs text-gray-500 mt-1">Cole a URL de uma imagem para o campeonato (opcional)</p>
@@ -481,7 +481,7 @@ export default function MeuCampeonatoPage() {
                     name="tipo"
                     value={formData.tipo}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     required
                   >
                     <option value="pontos-corridos">Pontos Corridos</option>
@@ -498,7 +498,7 @@ export default function MeuCampeonatoPage() {
                     name="premiacao"
                     value={formData.premiacao}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     placeholder="Ex: Troféu + R$ 1000,00"
                   />
                 </div>
@@ -514,7 +514,7 @@ export default function MeuCampeonatoPage() {
                       value={formData.dataInicio}
                       onChange={handleInputChange}
                       min={getTodayDate()}
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full px-3 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                       required
                     />
                   </div>
@@ -528,7 +528,7 @@ export default function MeuCampeonatoPage() {
                       value={formData.dataFim}
                       onChange={handleInputChange}
                       min={getMinEndDate()}
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     />
                   </div>
                 </div>
@@ -544,7 +544,7 @@ export default function MeuCampeonatoPage() {
                     onChange={handleInputChange}
                     min="2"
                     max="100"
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     required
                   />
                 </div>
@@ -571,7 +571,7 @@ export default function MeuCampeonatoPage() {
                       </>
                     ) : (
                       <>
-                        <span className="mr-2">✅</span> Criar Campeonato
+                      Criar Campeonato
                       </>
                     )}
                   </button>
@@ -588,7 +588,7 @@ export default function MeuCampeonatoPage() {
           <div className="bg-white rounded-xl shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Editar Campeonato</h2>
+                <h2 className="text-xl text-gray-800 font-bold">Editar Campeonato</h2>
                 <button
                   onClick={() => {
                     setShowEditModal(false);
@@ -610,7 +610,7 @@ export default function MeuCampeonatoPage() {
                     name="nome"
                     value={formData.nome}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     required
                   />
                 </div>
@@ -624,7 +624,7 @@ export default function MeuCampeonatoPage() {
                     value={formData.descricao}
                     onChange={handleInputChange}
                     rows="3"
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                   ></textarea>
                 </div>
                 
@@ -637,7 +637,7 @@ export default function MeuCampeonatoPage() {
                     name="imagem"
                     value={formData.imagem}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     placeholder="https://exemplo.com/imagem.jpg"
                   />
                   <p className="text-xs text-gray-500 mt-1">Cole a URL de uma imagem para o campeonato (opcional)</p>
@@ -651,7 +651,7 @@ export default function MeuCampeonatoPage() {
                     name="tipo"
                     value={formData.tipo}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     required
                   >
                     <option value="pontos-corridos">Pontos Corridos</option>
@@ -668,7 +668,7 @@ export default function MeuCampeonatoPage() {
                     name="premiacao"
                     value={formData.premiacao}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     placeholder="Ex: Troféu + R$ 1000,00"
                   />
                 </div>
@@ -684,7 +684,7 @@ export default function MeuCampeonatoPage() {
                       value={formData.dataInicio}
                       onChange={handleInputChange}
                       min={getTodayDate()}
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                       required
                     />
                   </div>
@@ -698,7 +698,7 @@ export default function MeuCampeonatoPage() {
                       value={formData.dataFim}
                       onChange={handleInputChange}
                       min={getMinEndDate()}
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     />
                   </div>
                 </div>
@@ -714,7 +714,7 @@ export default function MeuCampeonatoPage() {
                     onChange={handleInputChange}
                     min="2"
                     max="100"
-                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full px-3 py-2 border text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8C2E62]"
                     required
                   />
                 </div>
@@ -742,7 +742,7 @@ export default function MeuCampeonatoPage() {
                       </>
                     ) : (
                       <>
-                        <span className="mr-2">💾</span> Salvar Alterações
+                       Salvar Alterações
                       </>
                     )}
                   </button>
