@@ -61,18 +61,18 @@ export default function Footer() {
           <h3 className="font-semibold mb-4">Atalhos</h3>
           <ul className="space-y-2 text-gray-400">
             <li>
-              <a href="/sobre" className="hover:text-white">
-                Sobre Nós
-              </a>
-            </li>
-            <li>
-              <a href="/cadastro" className="hover:text-white">
-                Cadastro
-              </a>
-            </li>
-            <li>
-              <a href="/login" className="hover:text-white">
+              <a href="/login" className="hover:text-white transition-colors">
                 Login
+              </a>
+            </li>
+            <li>
+              <a href="/termos/Termos_de_Uso_Passa_a_Bola.pdf" className="hover:text-white transition-colors">
+                Termos de Uso
+              </a>
+            </li>
+            <li>
+              <a href="/termos/Politica_de_Privacidade_Passa_a_Bola.pdf" className="hover:text-white transition-colors">
+                Política de Privacidade
               </a>
             </li>
           </ul>

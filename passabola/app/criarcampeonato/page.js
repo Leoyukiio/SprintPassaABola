@@ -13,6 +13,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import Link from "next/link";
 
 export default function MeuCampeonatoPage() {
   const [ligas, setLigas] = useState([]);
@@ -315,17 +316,27 @@ export default function MeuCampeonatoPage() {
             <div className="absolute top-4 right-4 flex space-x-2">
               <button
                 onClick={() => openEditModal(liga)}
-                className="bg-blue-100 text-blue-700 p-2 rounded-lg hover:bg-blue-200"
+                className="bg-blue-100 text-blue-700 p-2 rounded-lg hover:bg-blue-200 text-sm"
                 title="Editar campeonato"
               >
-                Editar
+                ✏️ Editar
               </button>
+              
+              {/* NOVO BOTÃO - Controle por App */}
+              <Link 
+                href={`/campeonato/${liga.id}/controle`}
+                className="bg-purple-100 text-purple-700 p-2 rounded-lg hover:bg-purple-200 text-sm flex items-center"
+                title="Controle por App"
+              >
+                📱 Controle
+              </Link>
+              
               <button
                 onClick={() => openDeleteModal(liga)}
-                className="bg-red-100 text-red-700 p-2 rounded-lg hover:bg-red-200"
+                className="bg-red-100 text-red-700 p-2 rounded-lg hover:bg-red-200 text-sm"
                 title="Excluir campeonato"
               >
-                Excluir
+                🗑️ Excluir
               </button>
             </div>
             
@@ -370,7 +381,7 @@ export default function MeuCampeonatoPage() {
             {liga.solicitacoes?.length > 0 ? (
               liga.solicitacoes.map((s) => (
                 <div
-                  key={s.nome} //TODO: Ta aparecendo sem nome
+                  key={s.teamId}
                   className="flex justify-between text-gray-800 items-center mt-2 p-2 bg-gray-50 rounded border"
                 >
                   <div className="flex items-center space-x-3">
@@ -390,15 +401,15 @@ export default function MeuCampeonatoPage() {
                     <div className="space-x-2">
                       <button
                         onClick={() => handleSolicitacao(liga.id, s, true)}
-                        className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
+                        className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm"
                       >
-                      Aprovar
+                        Aprovar
                       </button>
                       <button
                         onClick={() => handleSolicitacao(liga.id, s, false)}
-                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
                       >
-                       Negar
+                        Negar
                       </button>
                     </div>
                   )}
@@ -570,9 +581,7 @@ export default function MeuCampeonatoPage() {
                         <span className="mr-2">⏳</span> Criando...
                       </>
                     ) : (
-                      <>
-                      Criar Campeonato
-                      </>
+                      "Criar Campeonato"
                     )}
                   </button>
                 </div>
@@ -741,9 +750,7 @@ export default function MeuCampeonatoPage() {
                         <span className="mr-2">⏳</span> Atualizando...
                       </>
                     ) : (
-                      <>
-                       Salvar Alterações
-                      </>
+                      "Salvar Alterações"
                     )}
                   </button>
                 </div>
@@ -801,9 +808,7 @@ export default function MeuCampeonatoPage() {
                       <span className="mr-2">⏳</span> Excluindo...
                     </>
                   ) : (
-                    <>
-                     Excluir Campeonato
-                    </>
+                    "Excluir Campeonato"
                   )}
                 </button>
               </div>
