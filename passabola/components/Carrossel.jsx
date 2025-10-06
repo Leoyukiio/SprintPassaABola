@@ -9,8 +9,8 @@ import "swiper/css/navigation";
 const slides = [
   {
     id: 1,
-    title: "KIN SAITO",
-    subtitle: "FALA, BEBE - 2ª",
+    title: "FUTEBOL FEMININO",
+    subtitle: "Tudo Sobre o Futebol Feminino",
     description: "O melhor conteúdo sobre futebol feminino brasileiro",
     image: "/images/noticias/marta.jpg",
     gradient: "from-pink-500 to-purple-600"

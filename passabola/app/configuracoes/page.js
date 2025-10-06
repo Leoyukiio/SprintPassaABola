@@ -110,13 +110,13 @@ export default function Perfil() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 p-6">
+    <div className="min-h-screen bg-white p-6">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold text-white mb-8">Configurações</h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-8">Configurações</h1>
 
         {/* Foto */}
         <div className="flex items-center gap-6 mb-8">
-          <div className="w-24 h-24 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
+          <div className="w-24 h-24 rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
             <img 
               src={photoURL} 
               alt="Foto de perfil" 

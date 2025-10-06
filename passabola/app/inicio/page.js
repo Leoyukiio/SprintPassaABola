@@ -332,15 +332,6 @@ export default function InicioPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Banner de Status da API */}
-      <div className={`p-3 text-center text-sm ${
-        error ? 'bg-yellow-50 text-yellow-700 border-yellow-200' : 'bg-blue-50 text-blue-700 border-blue-200'
-      } border-b`}>
-        <strong>Fonte:</strong> {apiSource} 
-        {error && <span className="ml-2">• {error}</span>}
-        {loading && <span className="ml-2">• Carregando...</span>}
-      </div>
-
       {/* Carrossel de Notícias */}
       <section className="py-8 bg-white">
         <div className="max-w-5xl mx-auto px-4">
@@ -536,26 +527,6 @@ export default function InicioPage() {
           </div>
         </div>
       </section>
-
-      {/* Botão de Debug (remova depois) */}
-      <div className="fixed bottom-4 right-4">
-        <button 
-          onClick={() => {
-            console.log('🐛 DEBUG INFO:', {
-              activeTab: activeTab,
-              championship: championships[activeTab],
-              standings: standings,
-              fixtures: fixtures,
-              loading: loading,
-              error: error,
-              apiSource: apiSource
-            });
-          }}
-          className="bg-gray-800 text-white px-3 py-2 rounded text-xs opacity-50 hover:opacity-100"
-        >
-          Debug
-        </button>
-      </div>
     </div>
   );
 }

@@ -85,7 +85,7 @@ export default function Footer() {
             <input
               type="text"
               placeholder="Escreva sua sugestão"
-              className="px-3 py-2 rounded text-black focus:outline-none"
+              className="px-3 py-2 rounded bg-gray-200 text-black focus:outline-none"
             />
             <button
               type="submit"

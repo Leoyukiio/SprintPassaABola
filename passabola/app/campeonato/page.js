@@ -265,19 +265,19 @@ export default function CampeonatoPage() {
                       <p className="text-sm text-gray-500">Faça login para solicitar participação</p>
                     ) : isUsuarioInscrito(liga) ? (
                       <span className="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">
-                        ✅ Seu time já está inscrito
+                        Seu time já está inscrito
                       </span>
                     ) : getStatusSolicitacao(liga) === "pendente" ? (
                       <span className="bg-yellow-100 text-yellow-800 text-sm px-3 py-1 rounded-full">
-                        ⏳ Solicitação pendente
+                        Solicitação pendente
                       </span>
                     ) : getStatusSolicitacao(liga) === "aprovado" ? (
                       <span className="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">
-                        ✅ Solicitação aprovada
+                        Solicitação aprovada
                       </span>
                     ) : getStatusSolicitacao(liga) === "negado" ? (
                       <span className="bg-red-100 text-red-800 text-sm px-3 py-1 rounded-full">
-                        ❌ Solicitação negada
+                        Solicitação negada
                       </span>
                     ) : (
                       <button
@@ -288,10 +288,6 @@ export default function CampeonatoPage() {
                       </button>
                     )}
                   </div>
-                  
-                  <span className="text-xs text-gray-500">
-                    Criado por: {liga.organizadorNome || "Organizador"}
-                  </span>
                 </div>
               </div>
             )}
