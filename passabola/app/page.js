@@ -159,7 +159,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* Stats */}
+          {/* Stats - CSS Grid Container */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
             {stats.map((stat, index) => (
               <div key={index} className="text-center p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20">
@@ -183,7 +183,8 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Features - CSS Grid Container */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
@@ -203,7 +204,8 @@ export default function Home() {
       {/* About Section */}
       <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Sobre - CSS Grid Container */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent mb-6">
                 Sobre Nós
@@ -223,7 +225,8 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            {/* Cards - CSS Grid Container */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                   <Award className="h-8 w-8 text-pink-500 mb-3" />

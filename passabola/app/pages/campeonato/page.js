@@ -32,6 +32,9 @@ import {
   Zap
 } from "lucide-react";
 import Link from "next/link";
+import Modal from "../../../components/Modal";
+import Dropdown from "../../../components/Dropdown";
+import Dashboard from "../../../components/Dashboard";
 
 export default function TodosCampeonatosPage() {
   const [campeonatos, setCampeonatos] = useState([]);
@@ -42,6 +45,9 @@ export default function TodosCampeonatosPage() {
   const [solicitando, setSolicitando] = useState(null);
   const [filtro, setFiltro] = useState("todos"); // "todos", "inscritos", "disponiveis"
   const [viewMode, setViewMode] = useState("grid"); // "grid" ou "list"
+  const [showDashboard, setShowDashboard] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedCampeonato, setSelectedCampeonato] = useState(null);
 
   // Verifica usuário logado
   useEffect(() => {
@@ -296,7 +302,7 @@ export default function TodosCampeonatosPage() {
           </p>
         </div>
 
-        {/* Stats */}
+        {/* Stats - CSS Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-pink-100 rounded-full mb-3">
@@ -341,8 +347,17 @@ export default function TodosCampeonatosPage() {
           )}
         </div>
 
-        {/* Filtros e Controles */}
+        {/* Filtros e Controles com Dropdown */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 p-6 bg-white rounded-2xl shadow-lg border border-gray-100">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setShowDashboard(!showDashboard)}
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-4 py-2 rounded-xl font-semibold transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl"
+            >
+              <Trophy className="w-4 h-4" />
+              Dashboard
+            </button>
+          </div>
           {/* <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Filter className="h-5 w-5 text-gray-600" />
@@ -387,6 +402,19 @@ export default function TodosCampeonatosPage() {
           </div> */}
 
           <div className="flex items-center gap-4">
+            {/* Dropdown de Filtro */}
+            <Dropdown
+              options={[
+                { value: "todos", label: "Todos" },
+                { value: "inscritos", label: "Meus Campeonatos" },
+                { value: "disponiveis", label: "Disponíveis" }
+              ]}
+              value={filtro}
+              onChange={setFiltro}
+              placeholder="Filtrar..."
+              className="w-48"
+            />
+            
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setViewMode("grid")}
@@ -421,6 +449,33 @@ export default function TodosCampeonatosPage() {
             )}
           </div>
         </div>
+
+        {/* Dashboard Modal */}
+        <Modal
+          isOpen={showDashboard}
+          onClose={() => setShowDashboard(false)}
+          title="Dashboard de Campeonatos"
+          size="xl"
+        >
+          <div className="p-6">
+            <Dashboard
+              data={{
+                campeonatosAtivos: campeonatos.filter(c => c.status === "ativo").length,
+                totalTimes: campeonatos.reduce((total, c) => total + (c.timesInscritos?.length || 0), 0),
+                partidasAgendadas: 0,
+                crescimento: 15,
+                chartData: [
+                  { label: "Jan", value: campeonatos.filter(c => c.status === "ativo").length },
+                  { label: "Fev", value: Math.floor(campeonatos.length * 0.8) },
+                  { label: "Mar", value: Math.floor(campeonatos.length * 0.9) },
+                  { label: "Abr", value: campeonatos.length },
+                  { label: "Mai", value: Math.floor(campeonatos.length * 1.1) },
+                  { label: "Jun", value: Math.floor(campeonatos.length * 1.2) }
+                ]
+              }}
+            />
+          </div>
+        </Modal>
 
         {/* Lista de Campeonatos */}
         {campeonatosFiltrados.length === 0 ? (
@@ -562,13 +617,26 @@ export default function TodosCampeonatosPage() {
                           </div>
                         ) : null}
                         
-                        <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                          {expandedCampeonato === campeonato.id ? (
-                            <ChevronUp className="h-5 w-5" />
-                          ) : (
-                            <ChevronDown className="h-5 w-5" />
-                          )}
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedCampeonato(campeonato);
+                              setShowDetailsModal(true);
+                            }}
+                            className="text-blue-500 hover:text-blue-600 transition-colors p-2"
+                            title="Ver detalhes"
+                          >
+                            <Eye className="h-5 w-5" />
+                          </button>
+                          <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                            {expandedCampeonato === campeonato.id ? (
+                              <ChevronUp className="h-5 w-5" />
+                            ) : (
+                              <ChevronDown className="h-5 w-5" />
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -750,6 +818,46 @@ export default function TodosCampeonatosPage() {
             })}
           </div>
         )}
+
+        {/* Modal de Detalhes do Campeonato */}
+        <Modal
+          isOpen={showDetailsModal && selectedCampeonato !== null}
+          onClose={() => {
+            setShowDetailsModal(false);
+            setSelectedCampeonato(null);
+          }}
+          title={selectedCampeonato?.nome || "Detalhes do Campeonato"}
+          size="lg"
+        >
+          {selectedCampeonato && (
+            <div className="p-6 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-600">Descrição</label>
+                  <p className="text-gray-800 mt-1">{selectedCampeonato.descricao || "Sem descrição"}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-600">Status</label>
+                  <p className="text-gray-800 mt-1">{getStatusText(selectedCampeonato.status)}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-600">Local</label>
+                  <p className="text-gray-800 mt-1">{selectedCampeonato.local || "Não informado"}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-600">Modalidade</label>
+                  <p className="text-gray-800 mt-1">{selectedCampeonato.modalidade || "Não informada"}</p>
+                </div>
+              </div>
+              {selectedCampeonato.regras && (
+                <div>
+                  <label className="text-sm font-medium text-gray-600">Regras</label>
+                  <p className="text-gray-800 mt-1">{selectedCampeonato.regras}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </Modal>
       </div>
     </div>
   );

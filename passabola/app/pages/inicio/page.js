@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Trophy, Calendar, Star, Users, Target } from "lucide-react";
 import NewsCarousel from "../../../components/Carrossel";
 import { FootballApiService } from "../../lib/football-api";
+import ApiConsumer from "../../../components/ApiConsumer";
 
 export default function InicioPage() {
   const [activeTab, setActiveTab] = useState("BRASILEIRO");
@@ -363,7 +364,7 @@ export default function InicioPage() {
         </div>
       </div>
 
-      {/* Stats Section */}
+      {/* Stats Section - CSS Grid Container */}
       <section className="py-8 bg-white border-b">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -390,6 +391,13 @@ export default function InicioPage() {
             <p className="text-gray-600 text-lg">As principais notícias e novidades do universo feminino</p>
           </div>
           <NewsCarousel />
+        </div>
+      </section>
+
+      {/* Componente que consome API Local (JSON) */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <ApiConsumer />
         </div>
       </section>
 
@@ -433,8 +441,8 @@ export default function InicioPage() {
             </div>
           )}
 
-          {/* Conteúdo dos Campeonatos */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Conteúdo dos Campeonatos - CSS Grid Container */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             {/* Tabela de Classificação */}
             <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl p-6 border border-gray-100">
               <div className="flex items-center justify-between mb-6">
@@ -585,7 +593,8 @@ export default function InicioPage() {
             <p className="text-gray-600 text-lg">As últimas notícias e novidades do universo do futebol feminino</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Destaques - CSS Grid Container */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {highlights.map((highlight, index) => (
               <article key={index} className="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 shadow-lg border border-gray-100">
                 <div className={`h-40 bg-gradient-to-br ${highlight.color} flex items-center justify-center relative overflow-hidden`}>

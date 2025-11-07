@@ -21,6 +21,8 @@ import {
   MoreVertical
 } from "lucide-react";
 import Link from "next/link";
+import Modal from "../../../components/Modal";
+import Dashboard from "../../../components/Dashboard";
 
 export default function MeusCampeonatosPage() {
   const [user, setUser] = useState(null);
@@ -28,6 +30,7 @@ export default function MeusCampeonatosPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("todos");
+  const [showDashboard, setShowDashboard] = useState(false);
 
   // Verifica usuário logado
   useEffect(() => {
@@ -212,7 +215,7 @@ export default function MeusCampeonatosPage() {
           </p>
         </div>
 
-        {/* Estatísticas Rápidas */}
+        {/* Estatísticas Rápidas - CSS Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
             <div className="text-3xl font-bold text-gray-800 mb-2">{campeonatos.length}</div>
@@ -241,6 +244,13 @@ export default function MeusCampeonatosPage() {
         {/* Barra de Ações */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <button
+              onClick={() => setShowDashboard(!showDashboard)}
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl"
+            >
+              <Trophy className="w-5 h-5" />
+              Dashboard
+            </button>
             <div className="flex flex-col md:flex-row gap-4 flex-1">
               {/* Busca */}
               <div className="relative flex-1 md:max-w-xs">
@@ -282,6 +292,33 @@ export default function MeusCampeonatosPage() {
           </div>
         </div>
 
+        {/* Dashboard Modal */}
+        <Modal
+          isOpen={showDashboard}
+          onClose={() => setShowDashboard(false)}
+          title="Dashboard - Meus Campeonatos"
+          size="xl"
+        >
+          <div className="p-6">
+            <Dashboard
+              data={{
+                campeonatosAtivos: campeonatos.filter(c => c.status === "ativo").length,
+                totalTimes: campeonatos.reduce((total, c) => total + (c.timesInscritos?.length || 0), 0),
+                partidasAgendadas: 0,
+                crescimento: 20,
+                chartData: [
+                  { label: "Jan", value: Math.floor(campeonatos.length * 0.5) },
+                  { label: "Fev", value: Math.floor(campeonatos.length * 0.7) },
+                  { label: "Mar", value: Math.floor(campeonatos.length * 0.8) },
+                  { label: "Abr", value: Math.floor(campeonatos.length * 0.9) },
+                  { label: "Mai", value: campeonatos.length },
+                  { label: "Jun", value: Math.floor(campeonatos.length * 1.1) }
+                ]
+              }}
+            />
+          </div>
+        </Modal>
+
         {/* Lista de Campeonatos */}
         {campeonatosFiltrados.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-12 text-center">
@@ -304,6 +341,7 @@ export default function MeusCampeonatosPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            {/* Grid de Campeonatos - CSS Grid Container */}
             {campeonatosFiltrados.map((campeonato) => (
               <div
                 key={campeonato.id}

@@ -1,0 +1,110 @@
+{
+  "campeonatos": [
+    {
+      "id": 1,
+      "nome": "Copa Feminina 2024",
+      "descricao": "Campeonato nacional de futebol feminino",
+      "status": "ativo",
+      "modalidade": "feminino",
+      "categoria": "Profissional",
+      "dataInicio": "2024-03-01",
+      "dataFim": "2024-12-15",
+      "local": "São Paulo, SP",
+      "premiacao": "R$ 50.000,00",
+      "timesInscritos": 12,
+      "maxTimes": 16,
+      "tipo": "pontos-corridos",
+      "imagem": "/images/landing/game.jpg"
+    },
+    {
+      "id": 2,
+      "nome": "Liga Paulista Feminina",
+      "descricao": "Competição estadual de alto nível",
+      "status": "ativo",
+      "modalidade": "feminino",
+      "categoria": "Sub-20",
+      "dataInicio": "2024-04-10",
+      "dataFim": "2024-11-30",
+      "local": "São Paulo, SP",
+      "premiacao": "R$ 25.000,00",
+      "timesInscritos": 8,
+      "maxTimes": 12,
+      "tipo": "mata-mata",
+      "imagem": "/images/landing/parti.jpg"
+    },
+    {
+      "id": 3,
+      "nome": "Copa Libertadores Feminina",
+      "descricao": "Torneio internacional de clubes",
+      "status": "rascunho",
+      "modalidade": "feminino",
+      "categoria": "Profissional",
+      "dataInicio": "2024-06-01",
+      "dataFim": "2024-12-20",
+      "local": "Vários países",
+      "premiacao": "R$ 200.000,00",
+      "timesInscritos": 16,
+      "maxTimes": 32,
+      "tipo": "grupos-mata-mata",
+      "imagem": "/images/landing/time.jpg"
+    }
+  ],
+  "times": [
+    {
+      "id": 1,
+      "nome": "Corinthians Feminino",
+      "cidade": "São Paulo",
+      "estado": "SP",
+      "categoria": "Profissional",
+      "modalidade": "Campo",
+      "membros": 25,
+      "escudo": "/images/equipe/gui.jpg"
+    },
+    {
+      "id": 2,
+      "nome": "Palmeiras Feminino",
+      "cidade": "São Paulo",
+      "estado": "SP",
+      "categoria": "Profissional",
+      "modalidade": "Campo",
+      "membros": 23,
+      "escudo": "/images/equipe/paulo2.webp"
+    },
+    {
+      "id": 3,
+      "nome": "Flamengo Feminino",
+      "cidade": "Rio de Janeiro",
+      "estado": "RJ",
+      "categoria": "Profissional",
+      "modalidade": "Campo",
+      "membros": 22,
+      "escudo": "/images/equipe/victor.jpg"
+    }
+  ],
+  "noticias": [
+    {
+      "id": 1,
+      "titulo": "Corinthians vence e se aproxima do título",
+      "categoria": "Brasileiro",
+      "data": "2024-05-15",
+      "imagem": "/images/noticias/marta.jpg",
+      "resumo": "Time paulista vence por 3x0 e mantém liderança"
+    },
+    {
+      "id": 2,
+      "titulo": "Renovação de contrato em destaque",
+      "categoria": "Mercado",
+      "data": "2024-05-14",
+      "imagem": "/images/noticias/renovacao.jpeg",
+      "resumo": "Jogadoras renovam contratos com times brasileiros"
+    }
+  ],
+  "estatisticas": {
+    "totalCampeonatos": 3,
+    "totalTimes": 45,
+    "totalJogadoras": 1200,
+    "partidasRealizadas": 156,
+    "crescimento": 35
+  }
+}
+

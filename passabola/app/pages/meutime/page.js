@@ -480,7 +480,7 @@ export default function MeuTimePage() {
                     </div>
                   </div>
 
-                  {/* Formulário */}
+                  {/* Formulário - CSS Grid Container */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Nome do Time *</label>
@@ -596,6 +596,7 @@ export default function MeuTimePage() {
                     
                     <h3 className="text-3xl font-bold text-gray-800 mb-2">{team.nome}</h3>
                     
+                    {/* Grid de Informações - CSS Grid Container */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                       <div className="bg-gray-50 p-4 rounded-xl">
                         <Award className="h-6 w-6 text-pink-500 mx-auto mb-2" />

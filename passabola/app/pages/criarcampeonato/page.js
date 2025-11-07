@@ -723,7 +723,7 @@ export default function CriarCampeonatoPage() {
               
               <h2 className="text-3xl font-bold text-gray-800 mb-4">Campeonato Criado com Sucesso!</h2>
               <p className="text-gray-600 text-lg mb-2">
-                Seu campeonato <strong>"{dadosCampeonato.nome}"</strong> está ativo e pronto para receber inscrições.
+                Seu campeonato <strong>&quot;{dadosCampeonato.nome}&quot;</strong> está ativo e pronto para receber inscrições.
               </p>
               <p className="text-gray-500 mb-8">
                 Você receberá um email com todos os detalhes e instruções para gerenciar seu campeonato.
